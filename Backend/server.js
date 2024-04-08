@@ -6,7 +6,7 @@ const dotenv = require('dotenv').config();
 const API_KEY = process.env.API_KEY;
 
 const app = express();
-const ConnnectDB = async () => {
+const connnectDB = async () => {
   try {
     await mongoose.connect(API_KEY);
     console.log('connected to DB');
@@ -19,5 +19,5 @@ app.use(cors());
 
 app.listen(3553, async () => {
   console.log('Port listening to 3553 port');
-  ConnnectDB()
+  connnectDB()
 });
