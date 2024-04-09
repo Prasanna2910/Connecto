@@ -20,11 +20,11 @@ const connectDB = async () => {
 const schema = new mongoose.Schema({
   Name: String,
   Work: String,
-  PhoneNmber: Number,
+  PhoneNumber: Number,
 });
 
 app.get('/main', (req, res) => {
-  res.send(schema)
+  res.send("I have done my schema")
 });
 
 app.listen(3553, async () => {
