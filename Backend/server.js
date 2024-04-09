@@ -17,6 +17,15 @@ const connectDB = async () => {
   }
 };
 
+const schema = new mongoose.Schema({
+  Name: String,
+  Work: String,
+  PhoneNmber: Number,
+});
+
+app.get('/main', (req, res) => {
+  res.send(schema)
+});
 
 app.listen(3553, async () => {
   console.log('Port listening to 3553 port');
