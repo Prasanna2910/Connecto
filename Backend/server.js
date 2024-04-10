@@ -3,10 +3,12 @@ const cors = require('cors');
 const axios = require('axios');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
+const bodyParser = require('body-parser');
 const MONGO_URI = process.env.MONGO_URI;
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
 
 const connectDB = async () => {
   try {
@@ -23,8 +25,16 @@ const schema = new mongoose.Schema({
   PhoneNumber: Number,
 });
 
+const Model = mongoose.model('db', schema);
+
 app.get('/main', (req, res) => {
-  res.send("I have done my schema")
+  Model.find({})
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
 });
 
 app.listen(3553, async () => {
