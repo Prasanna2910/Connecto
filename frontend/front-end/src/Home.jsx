@@ -8,6 +8,7 @@ function Home() {
   useEffect(() => {
     axios
       .get('http://localhost:3553/main')
+
       .then((res) => {
         console.log('get in frontend is working');
         if (res.data.length > 0) {

@@ -33,7 +33,8 @@ app.get('/main', (req, res) => {
       res.json(data);
     })
     .catch((err) => {
-      console.log('error', err);
+      // console.log('error', err);
+      res.send("error occured")
     });
 });
 
