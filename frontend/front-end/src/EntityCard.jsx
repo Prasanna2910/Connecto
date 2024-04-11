@@ -9,4 +9,5 @@ const EntityCard = ({ entity }) => {
     </>
   );
 };
+
 export default EntityCard;
