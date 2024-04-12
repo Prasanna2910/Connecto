@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import Home from './Home';
+import Splash from './Splash';
+// import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <>
-      <Home />
+      <Splash />
     </>
   );
 }

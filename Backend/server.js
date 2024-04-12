@@ -34,7 +34,7 @@ app.get('/main', (req, res) => {
     })
     .catch((err) => {
       // console.log('error', err);
-      res.send("error occured")
+      res.send(err, 'error occured');
     });
 });
 
