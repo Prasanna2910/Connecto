@@ -3,6 +3,7 @@ const cors = require('cors');
 const axios = require('axios');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
+const joi =  require("joi")
 const bodyParser = require('body-parser');
 const MONGO_URI = process.env.MONGO_URI;
 

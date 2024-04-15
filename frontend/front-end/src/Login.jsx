@@ -1,11 +1,15 @@
 import React from 'react';
+import Signup from './Signup';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
   return (
     <div className="bg-[#ffffff] h-screen ">
       <form className="mt-10">
         <div className="relative py-3 w-1/3 ml-96">
-          <div className="relative px-4 py-10 bg-black mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
+          <div className="relative px-4 py-10 mx-8 md:mx-0 shadow rounded-3xl sm:p-10 border border-blacke">
+            <h2 className="text-2xl font-bold text-blue-600 ">Login</h2>
             <div className="max-w-md mx-auto text-white">
               <div className="flex items-center space-x-5 justify-center"></div>
               <div className="mt-5">
@@ -16,7 +20,7 @@ function Login() {
                   E-mail
                 </label>
                 <input
-                  className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full bg-gray-700 text-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500"
+                  className="border border-black bg-gray-100 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full  text-black"
                   type="text"
                   id="login"
                 />
@@ -27,7 +31,7 @@ function Login() {
                   Password
                 </label>
                 <input
-                  className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full bg-gray-700 text-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500"
+                  className="border border-black bg-gray-100 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full text-black"
                   type="password"
                   id="password"
                 />
@@ -42,7 +46,7 @@ function Login() {
               </div>
               <div className="flex justify-center items-center">
                 <div>
-                  <button className="flex items-center justify-center p-1 bg-white hover:bg-gray-200 focus:ring-blue-500 focus:ring-offset-blue-200 text-gray-700 w-10/11 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+                  <button className="flex items-center justify-center p-1 bg-white hover:bg-gray-200 focus:ring-blue-500 focus:ring-offset-blue-200 border text-gray-700 w-10/11 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       x="0px"
@@ -117,7 +121,7 @@ function Login() {
                         opacity=".2"
                       ></path>
                     </svg>
-                    <span className="ml-8">Sign in with Google</span>
+                    <span className="ml-3">Sign in with Google</span>
                   </button>
                   {/* <button className="flex items-center justify-center p-1 w-10/11 bg-white hover:bg-gray-200 focus:ring-blue-500 focus:ring-offset-blue-200 text-gray-700  transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg mt-4">
                     <svg
@@ -138,25 +142,30 @@ function Login() {
                 <button
                   className="py-2 px-4 bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
                   type="submit"
+                  // onClick={() => {
+                  //   navigate(`/Signup`);
+                  // }}
                 >
                   Log in
                 </button>
               </div>
               <div className="flex items-center justify-between mt-4">
                 <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
-                <a
+                <p
                   className="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline"
-                  href="#"
+                  onClick={() => {
+                    navigate(`/Signup`);
+                  }}
                 >
                   or sign up
-                </a>
+                </p>
                 <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
               </div>
             </div>
           </div>
         </div>
       </form>
-      <div className='border border-blacki'></div>
+      <div className="border border-blacki"></div>
     </div>
   );
 }
