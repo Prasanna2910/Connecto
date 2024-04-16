@@ -3,8 +3,9 @@ const cors = require('cors');
 const axios = require('axios');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
-const joi =  require("joi")
+const joi = require('joi');
 const bodyParser = require('body-parser');
+const Joi = require('joi');
 const MONGO_URI = process.env.MONGO_URI;
 
 const app = express();
@@ -20,15 +21,34 @@ const connectDB = async () => {
   }
 };
 
+const userJoiSchema = Joi.object({
+  name: Joi.string().alphanum().min(2).max(40).required(),
+  email: Joi.string().email().required(),
+  confirmemail: Joi.string().email().required(),
+  password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{5,40}$')).required(),
+  confirmpassword: Joi.string()
+    .pattern(new RegExp('^[a-zA-Z0-9]{5,40}$'))
+    .required(),
+  gender: Joi.string().required(),
+});
 const schema = new mongoose.Schema({
   Name: String,
   Work: String,
   PhoneNumber: Number,
 });
+const NewModelForSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  // confirmemail:String,
+  password: String,
+  // confirmpassword:String,
+  gender: String,
+});
 
+const ModelForJoi = mongoose.model('AuthDB', NewModelForSchema);
 const Model = mongoose.model('db', schema);
 
-app.get('/main', (req, res) => {
+app.get('/signup', (req, res) => {
   Model.find({})
     .then((data) => {
       res.json(data);
@@ -37,6 +57,24 @@ app.get('/main', (req, res) => {
       // console.log('error', err);
       res.send(err);
     });
+});
+
+app.post('/signup', async (req, res) => {
+  const { error, value } = userJoiSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message });
+  }
+  if (req.body.email !== req.body.confirmemail) {
+    return res.status(400).json({ message: 'Emails do not match' });
+  }
+  if (req.body.password !== req.body.confirmpassword) {
+    return res.status(400).json({ message: 'Passwords do not match' });
+  }
+  try {
+    const newUser = await ModelForJoi.create(value);
+  } catch (error) {
+    console.log('error', error);
+  }
 });
 
 app.listen(3553, async () => {
