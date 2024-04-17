@@ -1,13 +1,43 @@
 import React from 'react';
 import Signup from './Signup';
 import { useNavigate } from 'react-router-dom';
+import { GoogleLogin } from 'react-google-login';
+import { useEffect } from 'react';
+import { gapi } from 'gapi-script';
+
+const clientId =
+  '598048758838-enhddjp4p7aecbg815on7utseok98276.apps.googleusercontent.com';
 
 function Login() {
   const navigate = useNavigate();
+
+  const onSuccess = (res) => {
+    console.log('login success', res.profileObj);
+  };
+  const onFailure = (res) => {
+    console.log('login is unsuccessful', res);
+  };
+
+  useEffect(() => {
+    async function start() {
+      try {
+        await gapi.load('client:auth2', async () => {
+          await gapi.client.init({
+            clientId: clientId,
+            scope: 'email profile',
+          });
+        });
+      } catch (error) {
+        console.error('Error loading or initializing Google API client', error);
+      }
+    }
+    start();
+  }, []);
+
   return (
     <div className="bg-[#ffffff] h-screen ">
-      <form className="mt-10">
-        <div className="relative py-3 w-1/3 ml-96">
+      <form className="mt-10 flex justify-around items-center">
+        <div className="relative py-3 w-1/3">
           <div className="relative px-4 py-10 mx-8 md:mx-0 shadow rounded-3xl sm:p-10 border border-blacke">
             <h2 className="text-2xl font-bold text-blue-600 ">Login</h2>
             <div className="max-w-md mx-auto text-white">
@@ -45,8 +75,17 @@ function Login() {
                 </a>
               </div>
               <div className="flex justify-center items-center">
-                <div>
-                  <button className="flex items-center justify-center p-1 bg-white hover:bg-gray-200 focus:ring-blue-500 focus:ring-offset-blue-200 border text-gray-700 w-10/11 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+                <div id="loginButton">
+                  <GoogleLogin
+                    clientId={clientId}
+                    buttonText="Login with google"
+                    onSuccess={onSuccess}
+                    onFailure={onFailure}
+                    cookiePolicy={'single-host-origin'}
+                    isSignedIn={true}
+                  ></GoogleLogin>
+                </div>
+                {/* <button className="flex items-center justify-center p-1 bg-white hover:bg-gray-200 focus:ring-blue-500 focus:ring-offset-blue-200 border text-gray-700 w-10/11 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       x="0px"
@@ -122,8 +161,8 @@ function Login() {
                       ></path>
                     </svg>
                     <span className="ml-3">Sign in with Google</span>
-                  </button>
-                  {/* <button className="flex items-center justify-center p-1 w-10/11 bg-white hover:bg-gray-200 focus:ring-blue-500 focus:ring-offset-blue-200 text-gray-700  transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg mt-4">
+                  </button> */}
+                {/* <button className="flex items-center justify-center p-1 w-10/11 bg-white hover:bg-gray-200 focus:ring-blue-500 focus:ring-offset-blue-200 text-gray-700  transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg mt-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       x="0px"
@@ -136,7 +175,6 @@ function Login() {
                     </svg>
                     <span className="ml-8">Sign in with Github</span>
                   </button> */}
-                </div>
               </div>
               <div className="mt-5">
                 <button

@@ -48,7 +48,7 @@ const NewModelForSchema = new mongoose.Schema({
 const ModelForJoi = mongoose.model('AuthDB', NewModelForSchema);
 const Model = mongoose.model('db', schema);
 
-app.get('/signup', (req, res) => {
+app.get('/', (req, res) => {
   Model.find({})
     .then((data) => {
       res.json(data);
@@ -59,7 +59,7 @@ app.get('/signup', (req, res) => {
     });
 });
 
-app.post('/signup', async (req, res) => {
+app.post('/', async (req, res) => {
   const { error, value } = userJoiSchema.validate(req.body);
   if (error) {
     return res.status(400).json({ message: error.details[0].message });

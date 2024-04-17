@@ -22,7 +22,7 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3553/signup', formData);
+      const res = await axios.post('https://connecto-dupe.onrender.com.signup', formData);
       console.log(res);
       setFormData({
         name: '',
