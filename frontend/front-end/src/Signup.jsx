@@ -39,7 +39,7 @@ function Signup() {
   return (
     <div className="flex flex-col items-center justify-center h-3/4 ">
       <div className="w-full max-w-md rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-bold text-blue-500 mb-4">Sign Up</h2>
+        <h2 className="text-2xl font-bold text-sky-500 mb-4">Sign Up</h2>
         <form className="flex flex-col" onSubmit={handleSubmit}>
           <input
             placeholder="Name"
@@ -98,7 +98,7 @@ function Signup() {
             {' '}
             Already have an account?{' '}
             <p
-              className="text-blue-500 hover:underline "
+              className="text-sky-500 hover:underline "
               onClick={() => {
                 navigate(`/Login`);
               }}
@@ -107,7 +107,7 @@ function Signup() {
             </p>
           </p>
           <button
-            className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 transition ease-in-out duration-150"
+            className="bg-gradient-to-r from-indigo-500 to-sky-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 transition ease-in-out duration-150"
             type="submit"
             // onSubmit={handleSubmit}
           >
