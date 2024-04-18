@@ -3,9 +3,7 @@ import axios from 'axios';
 import EntityCard from './EntityCard';
 import Login from './Login';
 import './App.css';
-// import Clogo from './assets/blacksplashA.png';
 import logoColor from './assets/logo-color1.png';
-import connectologo from './assets/connecto-logo-color.png';
 import workerimg from './assets/worker-animated-nobg.png';
 import { useNavigate } from 'react-router-dom';
 
@@ -34,13 +32,15 @@ function Splash() {
         </div>
 
         <div className="flex gap-4 justify-evenly items-center font-semibold w-1/2">
-          <h1 className='hover:underline'>About</h1>
+          <h1 className='hover:underline' onClick={()=>{
+            navigate("/About")
+          }}>About</h1>
           <h1 className='hover:underline'>Case studies</h1>
           <h1 className='hover:underline'>Components</h1>
         </div>
       </nav>
       <br />
-      <br />
+      
       <div className="flex ">
         <div className="m-4 p-4  w-1/2">
           <div className=" w-3/4 text-justify">
