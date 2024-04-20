@@ -59,6 +59,12 @@ app.get('/', (req, res) => {
     });
 });
 
+app.post('/main', async (req, res) => {
+  console.log(req.body);
+  res.send(req.body);
+  await Model.create(req.body);
+});
+
 app.post('/', async (req, res) => {
   const { error, value } = userJoiSchema.validate(req.body);
   if (error) {
