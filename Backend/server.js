@@ -60,7 +60,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/main', async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   res.send(req.body);
   await Model.create(req.body);
 });
