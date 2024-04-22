@@ -8,22 +8,10 @@ import workerimg from './assets/worker-animated-nobg.png';
 import { useNavigate } from 'react-router-dom';
 
 function Splash() {
-  const [entities, setEntities] = useState([]);
+  
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios
-      .get('https://connecto-dupe.onrender.com/main')
-      .then((res) => {
-        console.log('get in frontend is working');
-        if (res.data.length > 0) {
-          setEntities(res.data);
-        }
-      })
-      .catch((error) => {
-        console.log('error in getting', error);
-      });
-  }, []);
+  
   return (
     <div className="p-1 m-1">
       <nav className="flex justify-between ">
