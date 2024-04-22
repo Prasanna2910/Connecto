@@ -39,9 +39,7 @@ const schema = new mongoose.Schema({
 const NewModelForSchema = new mongoose.Schema({
   name: String,
   email: String,
-  // confirmemail:String,
   password: String,
-  // confirmpassword:String,
   gender: String,
 });
 
@@ -60,9 +58,12 @@ app.get('/', (req, res) => {
 });
 
 app.post('/main', async (req, res) => {
-  // console.log(req.body);
-  res.send(req.body);
-  await Model.create(req.body);
+  try {
+    const newUser = await Model.create(req.body);
+    res.send(newUser);
+  } catch (Error) {
+    res.send(Error);
+  }
 });
 
 app.post('/', async (req, res) => {
@@ -78,12 +79,14 @@ app.post('/', async (req, res) => {
   }
   try {
     const newUser = await ModelForJoi.create(value);
+    res.send(newUser);
   } catch (error) {
     console.log('error', error);
   }
 });
 
-app.listen(3553, async () => {
-  console.log('Port listening to 3553 port');
+const PORT = 3553;
+app.listen(PORT, async () => {
+  console.log(`Port listening to ${PORT} port`);
   await connectDB();
 });
