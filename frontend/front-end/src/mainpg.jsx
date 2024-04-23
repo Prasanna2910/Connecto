@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import EntityCard from './EntityCard';
+import { useNavigate } from 'react-router-dom';
 
 function mainpage() {
   const [entities, setEntities] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get('https://connecto-dupe.onrender.com/main')

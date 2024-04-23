@@ -8,10 +8,7 @@ import workerimg from './assets/worker-animated-nobg.png';
 import { useNavigate } from 'react-router-dom';
 
 function Splash() {
-  
   const navigate = useNavigate();
-
-  
   return (
     <div className="p-1 m-1">
       <nav className="flex justify-between ">
@@ -20,15 +17,20 @@ function Splash() {
         </div>
 
         <div className="flex gap-4 justify-evenly items-center font-semibold w-1/2">
-          <h1 className='hover:underline' onClick={()=>{
-            navigate("/About")
-          }}>About</h1>
-          <h1 className='hover:underline'>Case studies</h1>
-          <h1 className='hover:underline'>Components</h1>
+          <h1
+            className="hover:underline"
+            onClick={() => {
+              navigate('/About');
+            }}
+          >
+            About
+          </h1>
+          <h1 className="hover:underline">Case studies</h1>
+          <h1 className="hover:underline">Components</h1>
         </div>
       </nav>
       <br />
-      
+
       <div className="flex ">
         <div className="m-4 p-4  w-1/2">
           <div className=" w-3/4 text-justify">
