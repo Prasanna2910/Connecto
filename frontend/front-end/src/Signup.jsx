@@ -22,8 +22,14 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('https://connecto-dupe.onrender.com.signup', formData);
-      console.log(res);
+      const res = await axios.post(
+        'http://localhost:3553/signup',
+        formData
+      );
+      console.log(res.data.message);
+      if(res.data.message==="ok"){
+        navigate("/Mainpg")
+      }
       setFormData({
         name: '',
         email: '',
@@ -33,7 +39,7 @@ function Signup() {
         gender: 'male',
       });
     } catch (err) {
-      console.log('error', err.response.data);
+      console.log('error', err.response);
     }
   };
   return (
@@ -61,7 +67,7 @@ function Signup() {
           <input
             placeholder="Confirm Email"
             name="confirmemail"
-            value={formData.confirmEmail}
+            value={formData.confirmemail}
             className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
             type="email"
             onChange={handleChange}
