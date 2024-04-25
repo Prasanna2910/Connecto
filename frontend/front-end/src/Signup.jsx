@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Login from './Login';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Mainpg from './mainpg';
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -22,13 +23,13 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        'http://localhost:3553/signup',
-        formData
-      );
+      const res = await axios.post('http://localhost:3553/signup', formData);
       console.log(res.data.message);
-      if(res.data.message==="ok"){
-        navigate("/Mainpg")
+      if (res.data.message === 'ok') {
+        navigate('/Mainpg');
+      } else if (res.data.message === 'get out') {
+        alert('Your email is already in our databse. Please Login');
+        navigate(`/Login`);
       }
       setFormData({
         name: '',
