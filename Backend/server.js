@@ -54,7 +54,6 @@ app.get('/main', (req, res) => {
       res.json(data);
     })
     .catch((err) => {
-      // console.log('error', err);
       res.send(err);
     });
 });
@@ -72,6 +71,7 @@ app.post('/signup', async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (user) {
     res.send({ message: 'get out' });
+
   } else {
     const { error, value } = userJoiSchema.validate(req.body);
     if (error) {
@@ -97,12 +97,12 @@ app.post('/signup', async (req, res) => {
 app.post('/login', async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    // console.log(await bcrypt.compare(req.body.password, user.password));
+
     const salt = await bcrypt.genSalt(10);
+
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
-    // console.log(user.password, hashedPassword);
-    if (user && bcrypt.compare(req.body.password,user.password)) {
-      // alert('Login successful');
+
+    if (user && bcrypt.compare(req.body.password, user.password)) {
       res.json({ message: 'Login successful' });
     } else {
       res.send({ message: 'Invalid credentials or user not existed' });

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import { useEffect } from 'react';
 import { gapi } from 'gapi-script';
+import Mainpg from './mainpg';
 import connectologo from './assets/connecto-logo-color-removebg-preview.png';
 
 const clientId =
@@ -23,11 +24,13 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(formData)
+      console.log(formData);
       const res = await axios.post('http://localhost:3553/login', formData);
       console.log(res.data.message);
       if (res.data.message === 'Invalid credentials or user not existed') {
-        alert('error');
+        alert(
+          'Error happened. Please fill the Credentials. If filled, please look for the proper Credentials. Have you signed up already?'
+        );
       } else if (res.data.message === 'Login successful') {
         navigate('/Mainpg');
       }
