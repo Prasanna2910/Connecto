@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Mainpg() {
   const [entities, setEntities] = useState([]);
+  const [array, setArray] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     axios
@@ -13,12 +14,29 @@ function Mainpg() {
         console.log('Fetch successful');
         if (res.data.length > 0) {
           setEntities(res.data);
+          setArray(res.data)
         }
       })
       .catch((error) => {
         console.log('error in getting', error);
       });
   }, []);
+  const handleInput = (e) => {
+    console.log(e.value);
+    let input = e.value.toLowerCase();
+    console.log(entities);
+    let modarr = entities.filter((element, index) => {
+      if (e.value == '') {
+        setEntities({ entities });
+      }
+      let name = element.Name;
+      name = name.toLowerCase();
+      console.log(name.includes(input), element);
+      return name.includes(input);
+    });
+    setArray(modarr);
+  };
+  console.log(array)
   if (entities.length === 0) {
     return (
       <div className="flex justify-center items-center w-screen h-screen">
@@ -29,46 +47,51 @@ function Mainpg() {
     );
   }
   return (
-    <div className="bg-pink-200 ">
-      <div className=" flex justify-center text-center">
-        <h1 className="text-purple-500 text-3xl font-medium text-justify bg-fuchsia-950 w-1/4 p-2  flex justify-around rounded-3xl ">
-          Enitites
-        </h1>
-      </div>
-      <div></div>
-      <div className="grid grid-cols-2 gap-x-8 gap-y-8 mt-2.5">
-        {entities.map((entity, index) => (
-          <div
-            className="w-10/12 rounded-2xl ml-12 text-center p-2 bg-pink-300 h-44 grid items-center	"
-            key={index}
-          >
-            <div>
-              <EntityCard key={index} entity={entity} />
-            </div>
-            <div className="w-7/12 flex justify-evenly ml-24 p-0.5">
-              <button className="bg-red-500 text-black-300 border border-rose-300 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
-                <span className="bg-rose-300 shadow-rose-300 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
-                Delete
-              </button>
-              <button
-                className="bg-red-500 text-black-300 border border-rose-300 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group"
-                
-              >
-                <span className="bg-rose-300 shadow-rose-300 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
-                Update
-              </button>
-            </div>
+    <div className="manindiv ">
+      <div className="HeaderDiv  h-56 bg-gradient-to-r from-[#70c7ff] via-[#2fa8be] to-[#70c7ff] p-2">
+        <div className=" flex justify-center items-center m-4">
+          <div className="FirstText w-2/5 font-bold text-3xl text-white flex justify-center items-center">
+            Please Search here...
           </div>
-        ))}
+        </div>
+        <div className=" flex justify-center items-center h-2/5">
+          <div className=" w-1/2 flex justify-center">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="p-2 w-full"
+              onChange={(e) => {
+                {
+                  handleInput(e.target);
+                }
+              }}
+            />
+            <button className=" border-black border-l-[1px] bg-white p-1 font-semibold">
+              Search
+            </button>
+          </div>
+        </div>
       </div>
-      {/* <div>
-        <Form />
-      </div> */}
-      <div className="flex justify-around">
-        <button className="bg-purple-500 text-black-300 border border-rose-300 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
-          <span className="bg-rose-300 shadow-rose-300 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
-          Add
-        </button>
+      <div>
+        {' '}
+        <div className="grid grid-cols-2 gap-x-8 gap-y-8 mt-2.5">
+          {array.map((entity, index) => (
+            <div
+              className="w-10/12 rounded-2xl ml-12 text-center p-2 bg-pink-300 h-44 grid items-center	"
+              key={index}
+            >
+              <div>
+                <EntityCard key={index} entity={entity} />
+              </div>
+              <div className="w-7/12 flex justify-evenly ml-24 p-0.5">
+                <button className="bg-red-500 text-black-300 border border-rose-300 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
+                  <span className="bg-rose-300 shadow-rose-300 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
+                  Add +
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
