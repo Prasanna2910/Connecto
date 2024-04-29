@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function Mainpg() {
   const [entities, setEntities] = useState([]);
   const [array, setArray] = useState([]);
+  const [activeButton, setActiveButton] = useState('');
   const navigate = useNavigate();
   useEffect(() => {
     axios
@@ -14,7 +15,7 @@ function Mainpg() {
         console.log('Fetch successful');
         if (res.data.length > 0) {
           setEntities(res.data);
-          setArray(res.data)
+          setArray(res.data);
         }
       })
       .catch((error) => {
@@ -27,16 +28,24 @@ function Mainpg() {
     console.log(entities);
     let modarr = entities.filter((element, index) => {
       if (e.value == '') {
-        setEntities({ entities });
+        setEntities(entities);
       }
-      let name = element.Name;
-      name = name.toLowerCase();
-      console.log(name.includes(input), element);
-      return name.includes(input);
+      let work = element.Work;
+      work = work.toLowerCase();
+      console.log(work.includes(input), element);
+      return work.includes(input);
     });
     setArray(modarr);
   };
-  console.log(array)
+  const filterEntities = (work) => {
+    const filtered = entities.filter((entity) => entity.Work === work);
+    setArray(filtered);
+    setActiveButton(work);
+  };
+  const refresh = () => {
+    window.location.reload();
+  };
+  console.log(array);
   if (entities.length === 0) {
     return (
       <div className="flex justify-center items-center w-screen h-screen">
@@ -46,9 +55,10 @@ function Mainpg() {
       </div>
     );
   }
+
   return (
     <div className="manindiv ">
-      <div className="HeaderDiv  h-56 bg-gradient-to-r from-[#70c7ff] via-[#2fa8be] to-[#70c7ff] p-2">
+      <div className="HeaderDiv  h-72 bg-gradient-to-r from-[#70c7ff] via-[#2fa8be] to-[#70c7ff] p-2">
         <div className=" flex justify-center items-center m-4">
           <div className="FirstText w-2/5 font-bold text-3xl text-white flex justify-center items-center">
             Please Search here...
@@ -66,18 +76,117 @@ function Mainpg() {
                 }
               }}
             />
-            <button className=" border-black border-l-[1px] bg-white p-1 font-semibold">
+            <button className=" border-black border-l-[1px] bg-black p-1 font-semibold text-white">
               Search
+            </button>
+            <button
+              className=" border-white border-l-[2px] bg-black p-2 font-semibold text-white"
+              onClick={refresh}
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+        <div className="buttonsDiv h-10 flex justify-evenly items-center ">
+          <div className="Firstset  flex justify-evenly w-3/5 items-center">
+            <button
+              className=" p-1.5 rounded-3xl bg-black text-white font-thin"
+              onClick={() => filterEntities('Plumber')}
+            >
+              Plumber
+            </button>
+            <button
+              className=" p-1.5 rounded-3xl bg-black text-white font-thin"
+              onClick={() => filterEntities('Carpenter')}
+            >
+              Carpenter
+            </button>
+            <button
+              className=" p-1.5 rounded-3xl bg-black text-white font-thin"
+              onClick={() => filterEntities('Supervisor')}
+            >
+              Supervisor
+            </button>
+            <button
+              className=" p-1.5 rounded-3xl bg-black text-white font-thin"
+              onClick={() => filterEntities('Mason')}
+            >
+              Mason
+            </button>
+            <button
+              className=" p-1.5 rounded-3xl bg-black text-white font-thin"
+              onClick={() => filterEntities('Waterman')}
+            >
+              Waterman
+            </button>
+            <button
+              className=" p-1.5 rounded-3xl bg-black text-white font-thin"
+              onClick={() => filterEntities('Electrician')}
+            >
+              Electrician
+            </button>
+            <button
+              className=" p-1.5 rounded-3xl bg-black text-white font-thin"
+              onClick={() => filterEntities('Smith')}
+            >
+              Smith
+            </button>
+          </div>
+        </div>
+        <div className="btnsiv h-10 flex justify-evenly items-center">
+          <div className="  Secondset flex justify-evenly w-3/5 items-center">
+            <button
+              className=" p-1.5 rounded-3xl bg-black text-white font-thin"
+              onClick={() => filterEntities('UX/UI architect')}
+            >
+              UX/UI architect
+            </button>
+            <button
+              className=" p-1.5 rounded-3xl bg-black text-white font-thin"
+              onClick={() => filterEntities('HR')}
+            >
+              HR
+            </button>
+            <button
+              className=" p-1.5 rounded-3xl bg-black text-white font-thin"
+              onClick={() => filterEntities('Developer')}
+            >
+              Developer
+            </button>
+            <button
+              className=" p-1.5 rounded-3xl bg-black text-white font-thin"
+              onClick={() => filterEntities('Serverman')}
+            >
+              Serverman
+            </button>
+            <button
+              className=" p-1.5 rounded-3xl bg-black text-white font-thin"
+              onClick={() => filterEntities('Hacker')}
+            >
+              Hacker
+            </button>
+            <button
+              className=" p-1.5 rounded-3xl bg-black text-white font-thin"
+              onClick={() => filterEntities('Backend Developer')}
+            >
+              Backend Developer
+            </button>
+            <button
+              className=" p-1.5 rounded-3xl bg-black text-white font-thin"
+              onClick={() => filterEntities('AI developer')}
+            >
+              AI developer
             </button>
           </div>
         </div>
       </div>
+
       <div>
         {' '}
         <div className="grid grid-cols-2 gap-x-8 gap-y-8 mt-2.5">
           {array.map((entity, index) => (
             <div
-              className="w-10/12 rounded-2xl ml-12 text-center p-2 bg-pink-300 h-44 grid items-center	"
+              className="w-10/12 rounded-2xl ml-12 text-center p-2 bg-sky-100 border border-sky-400 h-44 grid items-center	"
               key={index}
             >
               <div>
