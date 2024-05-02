@@ -5,6 +5,7 @@ import Login from './Login';
 import Signup from './Signup';
 import About from './About';
 import Mainpg from './mainpg';
+import Applyform from './ApplyForm';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route exact path="/Signup" element={<Signup />}></Route>
         <Route exact path="/About" element={<About />}></Route>
         <Route exact path="/Mainpg" element={<Mainpg />}></Route>
+        <Route exact path="/Applyform" element={<Applyform />}></Route>
       </Routes>
     </>
   );
