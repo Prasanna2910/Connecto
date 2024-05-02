@@ -32,10 +32,11 @@ const userJoiSchema = Joi.object({
   gender: Joi.string().required(),
 });
 
-const schema = new mongoose.Schema({
+const MainSchema = new mongoose.Schema({
   Name: String,
   Work: String,
   PhoneNumber: Number,
+  Email: String,
 });
 const userModelSchema = new mongoose.Schema({
   name: String,
@@ -45,10 +46,10 @@ const userModelSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model('AuthDB', userModelSchema);
-const Model = mongoose.model('db', schema);
+const ModelDb = mongoose.model('db', MainSchema);
 
 app.get('/main', (req, res) => {
-  Model.find({})
+  ModelDb.find({})
     .then((data) => {
       res.json(data);
     })
@@ -57,20 +58,10 @@ app.get('/main', (req, res) => {
     });
 });
 
-app.post('/main', async (req, res) => {
-  try {
-    const newUser = await Model.create(req.body);
-    res.send(newUser);
-  } catch (Error) {
-    res.send(Error);
-  }
-});
-
 app.post('/signup', async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (user) {
     res.send({ message: 'get out' });
-
   } else {
     const { error, value } = userJoiSchema.validate(req.body);
     if (error) {
@@ -111,9 +102,18 @@ app.post('/login', async (req, res) => {
     res.send('Error in login');
   }
 });
+app.post('/main', async (req, res) => {
+  console.log(
+    req.body,
+    '--------------------------------------------------------------'
+  );
+  await ModelDb.create(req.body);
+
+  return res.send(req.body);
+});
 
 const PORT = 3553;
 app.listen(PORT, async () => {
-  console.log(`Port listening to ${PORT} port`);
   await connectDB();
+  console.log(`Port listening to ${PORT} port`);
 });
