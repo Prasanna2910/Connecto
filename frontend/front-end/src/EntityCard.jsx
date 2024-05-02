@@ -6,6 +6,7 @@ const EntityCard = ({ entity }) => {
       <h3>Name : {entity.Name}</h3>
       <p>Work : {entity.Work}</p>
       <p>Phone Number : {entity.PhoneNumber} </p>
+      <p>Email : {entity.Email}</p>
     </>
   );
 };

@@ -58,11 +58,19 @@ function Mainpg() {
 
   return (
     <div className="manindiv ">
-      <div className="HeaderDiv  h-72 bg-gradient-to-r from-[#70c7ff] via-[#2fa8be] to-[#70c7ff] p-2">
+      <div className="HeaderDiv  h-80 bg-gradient-to-r from-[#70c7ff] via-[#2fa8be] to-[#70c7ff] p-2">
         <div className=" flex justify-center items-center m-4">
           <div className="FirstText w-2/5 font-bold text-3xl text-white flex justify-center items-center">
             Please Search here...
           </div>
+          <button
+            className="w-28 bg-black h-[30px] my-3 flex items-center justify-center rounded cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-red-500 before:to-zinnc-500 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded hover:before:left-0 text-[#fff] font-medium text-sm"
+            onClick={() => {
+              navigate('/Applyform');
+            }}
+          >
+            Apply yourself
+          </button>
         </div>
         <div className=" flex justify-center items-center h-2/5">
           <div className=" w-1/2 flex justify-center">
