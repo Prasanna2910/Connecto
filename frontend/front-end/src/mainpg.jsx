@@ -201,10 +201,11 @@ function Mainpg() {
                 <EntityCard key={index} entity={entity} />
               </div>
               <div className="w-7/12 flex justify-evenly ml-24 p-0.5">
-                <button className="bg-red-500 text-black-300 border border-rose-300 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
+                {/* <button className="bg-red-500 text-black-300 border border-rose-300 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
                   <span className="bg-rose-300 shadow-rose-300 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
                   Add +
-                </button>
+                </button> */}
+                <button className='button bg-sky-500 border border-sky-600 p-1 font-semibold rounded-lg'>Connect</button>
               </div>
             </div>
           ))}
