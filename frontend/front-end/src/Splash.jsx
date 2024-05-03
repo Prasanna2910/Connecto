@@ -46,7 +46,7 @@ function Splash() {
             </p>
           </div>
           <br />
-          <div className='flex justify-around'>
+          <div>
             <button
               className="w-52 bg-black p-2 h-[50px] my-3 flex items-center justify-center rounded cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-sky-500 before:to-sky-500 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded hover:before:left-0 text-[#fff] font-medium"
               onClick={() => {
@@ -55,11 +55,7 @@ function Splash() {
             >
               Click Here to Proceed
             </button>
-            <button
-              className="w-52 bg-black p-2 h-[50px] my-3 flex items-center justify-center rounded cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-sky-500 before:to-sky-500 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded hover:before:left-0 text-[#fff] font-medium"
-            >
-              Apply yourself
-            </button>
+            
           </div>
         </div>
         <div className="flex justify-around items-center w-1/2">

@@ -1,6 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Applyform() {
+  const navigate = useNavigate();
+  const [state, setState] = useState({
+    Name: '',
+    PhoneNumber: '',
+    Work: 0,
+    Email: '',
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setState((previousData) => ({
+      ...previousData,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = () => {
+    console.log(state);
+    axios
+      .post('http://localhost:3553/main', state)
+      .then((res) => {
+        console.log(res);
+        navigate('/Mainpg');
+      })
+
+      .catch((err) => {
+        console.error(err);
+      });
+  };
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="operationaldiv border w-1/3 h-3/4 shadow-md shadow-sky-500  ">
@@ -10,22 +39,18 @@ function Applyform() {
         </div>
         <br />
 
-        <div className=" w-full ">
+        <div className=" w-full">
           <br />
           <div className="flex items-center justify-center">
             <div className="relative">
               <input
                 id="username"
-                name="username"
+                name="Name"
                 type="text"
+                placeholder="Name..."
                 className="border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit"
+                onChange={handleChange}
               />
-              <label
-                htmlFor="username"
-                className="absolute left-0 top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-blue-700"
-              >
-                Name
-              </label>
             </div>
           </div>
           <br />
@@ -34,16 +59,12 @@ function Applyform() {
             <div className="relative">
               <input
                 id="userwork"
-                name="userwork"
+                name="Work"
                 type="text"
+                onChange={handleChange}
+                placeholder="Work..."
                 className="border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit"
               />
-              <label
-                htmlFor="userwork"
-                className="absolute left-0 top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-blue-700"
-              >
-                Work
-              </label>
             </div>
           </div>
           <br />
@@ -51,16 +72,12 @@ function Applyform() {
             <div className="relative">
               <input
                 id="userphonenumber"
-                name="userphonenumber"
+                name="PhoneNumber"
                 type="text"
+                onChange={handleChange}
+                placeholder="Phone Number..."
                 className="border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit"
               />
-              <label
-                htmlFor="userphonenumebr"
-                className="absolute left-0 top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-blue-700"
-              >
-                Phone Number
-              </label>
             </div>
           </div>
           <br />
@@ -70,15 +87,19 @@ function Applyform() {
                 id="useremail"
                 name="useremail"
                 type="text"
+                onChange={handleChange}
+                placeholder="Email...(not mandatory)"
                 className="border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit"
               />
-              <label
-                htmlFor="useremail"
-                className="absolute left-0 top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-blue-700"
-              >
-                Email (if any)
-              </label>
             </div>
+          </div>
+          <div className="flex justify-center items-center">
+            <button
+              className="w-36 bg-black  h-[40px] my-3 flex items-center justify-center rounded cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-sky-500 before:to-sky-500 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded hover:before:left-0 text-[#fff] font-medium"
+              onClick={handleSubmit}
+            >
+              Apply
+            </button>
           </div>
           <br />
         </div>

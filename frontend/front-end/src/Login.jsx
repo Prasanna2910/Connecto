@@ -109,14 +109,7 @@ function Login() {
                   }}
                 />
               </div>
-              <div className="text-right mb-4">
-                <a
-                  className="text-xs font-display font-semibold text-gray-500 hover:text-gray-400 cursor-pointer"
-                  href="#"
-                >
-                  Forgot Password?
-                </a>
-              </div>
+
               <div className="flex justify-center items-center">
                 <div id="loginButton">
                   <GoogleLogin
