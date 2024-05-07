@@ -9,6 +9,7 @@ function Applyform() {
     PhoneNumber: '',
     Work: 0,
     Email: '',
+    Profile: '',
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,9 +31,30 @@ function Applyform() {
         console.error(err);
       });
   };
+  const handleFile = (e) => {
+    let a = e.target.files[0];
+    // console.log(a)
+    let b = new FileReader();
+    b.readAsDataURL(a);
+    b.onload = (event) => {
+      // console.log(event.target.result);
+      axios
+        .post('https://api.cloudinary.com/v1_1/ddpebfutl/image/upload', {
+          file: event.target.result,
+          upload_preset: 'tg5wbsjz',
+        })
+        .then((r) => {
+          setState({ ...state, Profile: r.data.secure_url });
+          console.log(r.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+  };
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="operationaldiv border w-1/3 h-3/4 shadow-md shadow-sky-500  ">
+      <div className="operationaldiv border w-1/2 h-11/12 shadow-md shadow-sky-500  ">
         <br />
         <div className="flex justify-center items-center">
           <h1 className="font-bold text-sky-500 text-2xl">Apply Here...</h1>
@@ -84,11 +106,38 @@ function Applyform() {
           <div className="flex items-center justify-center">
             <div className="relative">
               <input
+                id="userprofile"
+                name="Profile"
+                type="file"
+                onChange={handleFile}
+                // placeholder="Phone. Number..."
+
+                className="border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit"
+              />
+            </div>
+          </div>
+          <br />
+          <div className="flex items-center justify-center">
+            <div className="relative">
+              <input
                 id="useremail"
-                name="useremail"
+                name="Email"
                 type="text"
                 onChange={handleChange}
                 placeholder="Email...(not mandatory)"
+                className="border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit"
+              />
+            </div>
+          </div>
+          <br />
+          <div className="flex items-center justify-center">
+            <div className="relative">
+              <input
+                id="userWorkExp"
+                name="WorkExp"
+                type="text"
+                onChange={handleChange}
+                placeholder="Experience"
                 className="border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit"
               />
             </div>
