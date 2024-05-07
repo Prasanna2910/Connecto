@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import EntityCard from './EntityCard';
 import { useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Mainpg() {
+  // toast.configure();
   const [entities, setEntities] = useState([]);
   const [array, setArray] = useState([]);
   const [activeButton, setActiveButton] = useState('');
@@ -22,6 +25,9 @@ function Mainpg() {
         console.log('error in getting', error);
       });
   }, []);
+  const notify = () => {
+    toast.success("Your person is available");
+  };
   const handleInput = (e) => {
     console.log(e.value);
     let input = e.value.toLowerCase();
@@ -205,11 +211,17 @@ function Mainpg() {
                   <span className="bg-rose-300 shadow-rose-300 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
                   Add +
                 </button> */}
-                <button className='button bg-sky-500 border border-sky-600 p-1 font-semibold rounded-lg'>Connect</button>
+                <button
+                  className="button bg-sky-500 border border-sky-600 p-1 font-semibold rounded-lg"
+                  onClick={notify}
+                >
+                  Connect
+                </button>
               </div>
             </div>
           ))}
         </div>
+        <ToastContainer />
       </div>
     </div>
   );
