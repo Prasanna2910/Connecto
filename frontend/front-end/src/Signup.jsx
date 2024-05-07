@@ -23,6 +23,7 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(formData)
       const res = await axios.post('http://localhost:3553/signup', formData);
       console.log(res.data.message);
       if (res.data.message === 'ok') {
@@ -38,11 +39,34 @@ function Signup() {
         password: '',
         confirmpassword: '',
         gender: 'male',
+        // profile: '',
       });
     } catch (err) {
       console.log('error', err.response);
     }
   };
+  // const handleFile = (e) => {
+  //   let a = e.target.files[0];
+  //   // console.log(a)
+  //   let b = new FileReader();
+  //   b.readAsDataURL(a);
+  //   b.onload = (event) => {
+  //     // console.log(event.target.result);
+  //     axios
+  //       .post('https://api.cloudinary.com/v1_1/ddpebfutl/image/upload', {
+  //         file: event.target.result,
+  //         upload_preset: 'tg5wbsjz',
+  //       })
+  //       .then((r) => {
+  //         setFormData({...formData,profile:r.data.secure_url});
+  //         console.log(r.data);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   };
+  // };
+
   return (
     <div className="flex flex-col items-center justify-center h-3/4 ">
       <div className="w-full max-w-md rounded-lg shadow-md p-6">
@@ -89,6 +113,13 @@ function Signup() {
             type="password"
             onChange={handleChange}
           />
+          {/* <input
+            placeholder="Profile"
+            name="profile"
+            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+            type="file"
+            onChange={handleFile}
+          /> */}
 
           <select
             className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
