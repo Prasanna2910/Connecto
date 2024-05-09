@@ -21,6 +21,8 @@ import { MdElectricalServices } from 'react-icons/md';
 import { GiSwordSmithing } from 'react-icons/gi';
 import { IoGitNetworkSharp } from 'react-icons/io5';
 import { LuFileClock } from 'react-icons/lu';
+import { IoLocationSharp } from 'react-icons/io5';
+import { MdOutlineCurrencyRupee } from 'react-icons/md';
 
 function Mainpg() {
   // toast.configure();
@@ -65,7 +67,9 @@ function Mainpg() {
     setArray(filtered);
     setActiveButton(work);
   };
-  const refresh = () => {};
+  const refresh = (e) => {
+    setEntities((e.target.value = ''));
+  };
 
   console.log(array);
   if (entities.length === 0) {
@@ -77,6 +81,7 @@ function Mainpg() {
       </div>
     );
   }
+  console.log();
 
   return (
     <div className="manindiv ">
@@ -115,12 +120,12 @@ function Mainpg() {
               Search
             </button> */}
           </div>
-          <button
+          {/* <button
             className=" border-white bg-black p-4 font-semibold text-white rounded-full"
             onClick={refresh}
           >
             Clear
-          </button>
+          </button> */}
         </div>
         <div className="buttonsDiv h-10 flex justify-evenly items-center ">
           <div className="Firstset  flex justify-center w-3/4 gap-3 items-center">
@@ -231,20 +236,68 @@ function Mainpg() {
 
       <div>
         {' '}
-        <div className="border border-green-500 grid gap-5 justify-center items-center p-10">
+        <div className="grid gap-5 justify-center items-center p-10">
           {array.map((entity, index) => (
-            <div className="border border-black w-[45vw] h-48 pt-4" key={index}>
-              <div className="pl-5">
-                <p className="font-semibold text-lg">{entity.Name}</p>
+            <div
+              className="border w-[50vw] h-48 pt-4 shadow-lg rounded-2xl"
+              key={index}
+            >
+              <div className="flex">
+                <div className="flex items-center justify-center w-16">
+                  <img
+                    src={entity.Profile}
+                    alt="ProfilePhoto"
+                    className="size-12 rounded-full"
+                  />
+                </div>
+                <div>
+                  <div className="pl-5">
+                    <p className="font-semibold text-lg">{entity.Name}</p>
+                  </div>
+                  <div className=" pl-5 flex items-center gap-2 w-1/4 ">
+                    <p className="text-slate-600 font-semibold">
+                      {entity.Work}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className=" pl-5 flex items-center gap-2 w-1/4 ">
-                <p className="text-slate-800">{entity.Work}</p>
+              <div className="flex items-center  w-full justify-start mt-2">
+                <div className="pl-5 mt-1 w-1/3 flex items-center gap-1 border-r-2 ">
+                  <LuFileClock />
+                  <p className="text-slate-600">{entity.WorkExp}</p>
+                </div>
+                <div className="pl-5 mt-1 w-1/3 flex items-center gap-1 border-r-2 ">
+                  <IoLocationSharp />
+                  <p className="text-slate-600">{entity.Location}</p>
+                </div>
+                <div className="pl-5 mt-1 w-2/3 flex items-center gap-1">
+                  <MdOutlineCurrencyRupee />
+                  <p className="text-slate-600">{entity.ExpectedSalary}</p>
+                </div>
               </div>
-              <div className="pl-5 mt-1 w-1/4 flex items-center gap-1 border-r-2">
-                <LuFileClock />
-                <p className="text-slate-800">{entity.WorkExp}</p>
+              <div className="flex justify-between">
+                <div>
+                  <div className=" pl-5 mt-1 w-1/2 flex items-center ">
+                    <p className="text-slate-600 font-medium">{entity.Email}</p>
+                  </div>
+                  <div className=" pl-5 mt-1 w-1/2 flex items-center ">
+                    <p className="text-slate-600 font-medium">
+                      {entity.PhoneNumber}
+                    </p>
+                  </div>
+                </div>
+                <br />
+                <br />
+                <br />
+                <div className=" w-2/5 flex items-center justify-center">
+                  <button
+                    className="button bg-slate-100 border border-slate-900 p-1 font-semibold rounded-lg hover:bg-red-100"
+                    onClick={notify}
+                  >
+                    Connect
+                  </button>
+                </div>
               </div>
-              <div className='pl-5 w-1/3 '></div>
             </div>
           ))}
         </div>

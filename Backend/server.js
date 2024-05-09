@@ -29,7 +29,6 @@ const userJoiSchema = Joi.object({
   confirmpassword: Joi.string()
     .pattern(new RegExp('^[a-zA-Z0-9]{5,40}$'))
     .required(),
-  // profile: Joi.string().required(),
   gender: Joi.string().required(),
 });
 
@@ -41,6 +40,7 @@ const MainSchema = new mongoose.Schema({
   Email: String,
   WorkExp: String,
   Location:String,
+  ExpectedSalary:String,
 });
 const userModelSchema = new mongoose.Schema({
   name: String,
