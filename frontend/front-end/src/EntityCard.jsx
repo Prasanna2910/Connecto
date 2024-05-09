@@ -10,12 +10,12 @@ const EntityCard = ({ entity }) => {
         <p className="font-semibold text-lg">{entity.Email}</p>
         <p className="font-semibold text-lg">{entity.WorkExp}</p>
         <p className="font-semibold text-lg">{entity.Location}</p>
-      </div>
-      <div>
+        <p className="font-semibold text-lg">{entity.ExpectedSalary}</p>
         <img
           src={entity.Profile}
           className="border rounded-full border-black size-28 flex-col items-center"
         />
+        
       </div>
     </div>
   );

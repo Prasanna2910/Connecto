@@ -76,7 +76,7 @@ function Signup() {
             placeholder="Name"
             name="name"
             value={formData.name}
-            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-slate-500 transition ease-in-out duration-150"
             type="text"
             onChange={handleChange}
           />
@@ -85,7 +85,7 @@ function Signup() {
             placeholder="Email"
             name="email"
             value={formData.email}
-            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-slate-500 transition ease-in-out duration-150"
             type="email"
             onChange={handleChange}
           />
@@ -93,7 +93,7 @@ function Signup() {
             placeholder="Confirm Email"
             name="confirmemail"
             value={formData.confirmemail}
-            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-slate-500 transition ease-in-out duration-150"
             type="email"
             onChange={handleChange}
           />
@@ -101,7 +101,7 @@ function Signup() {
             placeholder="Password"
             name="password"
             value={formData.password}
-            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-slate-500 transition ease-in-out duration-150"
             type="password"
             onChange={handleChange}
           />
@@ -109,7 +109,7 @@ function Signup() {
             placeholder="Confirm Password"
             name="confirmpassword"
             value={formData.confirmpassword}
-            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-slate-500 transition ease-in-out duration-150"
             type="password"
             onChange={handleChange}
           />
@@ -122,7 +122,7 @@ function Signup() {
           /> */}
 
           <select
-            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-slate-500 transition ease-in-out duration-150"
             id="gender"
             name="gender"
             value={formData.gender}

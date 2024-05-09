@@ -10,6 +10,9 @@ function Applyform() {
     Work: 0,
     Email: '',
     Profile: '',
+    WorkExp: '',
+    Location: '',
+    ExpectedSalary: '',
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,7 +56,7 @@ function Applyform() {
     };
   };
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center">
       <div className="operationaldiv border w-1/2 h-11/12 shadow-md shadow-sky-500  ">
         <br />
         <div className="flex justify-center items-center">
@@ -110,8 +113,6 @@ function Applyform() {
                 name="Profile"
                 type="file"
                 onChange={handleFile}
-                // placeholder="Phone. Number..."
-
                 className="border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit"
               />
             </div>
@@ -138,6 +139,32 @@ function Applyform() {
                 type="text"
                 onChange={handleChange}
                 placeholder="Experience"
+                className="border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit"
+              />
+            </div>
+          </div>
+          <br />
+          <div className="flex items-center justify-center">
+            <div className="relative">
+              <input
+                id="userLocation"
+                name="Location"
+                type="text"
+                onChange={handleChange}
+                placeholder="Location"
+                className="border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit"
+              />
+            </div>
+          </div>
+          <br />
+          <div className="flex items-center justify-center">
+            <div className="relative">
+              <input
+                id="ExpectedSalary"
+                name="ExpectedSalary"
+                type="text"
+                onChange={handleChange}
+                placeholder="ExpectedSalary"
                 className="border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit"
               />
             </div>

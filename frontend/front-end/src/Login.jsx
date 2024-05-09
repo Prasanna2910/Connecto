@@ -79,13 +79,13 @@ function Login() {
               <div className="flex items-center space-x-5 justify-center"></div>
               <div className="mt-5">
                 <label
-                  className="font-semibold text-sm text-gray-400 pb-1 block"
+                  className="font-semibold text-sm text-gray-600 pb-1 block"
                   htmlFor="login"
                 >
                   E-mail
                 </label>
                 <input
-                  className="border border-black bg-gray-100 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full  text-black"
+                  className="border border-slate-500 outline-none bg-gray-100 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full  text-black"
                   type="text"
                   id="login"
                   name="email"
@@ -94,13 +94,13 @@ function Login() {
                   }}
                 />
                 <label
-                  className="font-semibold text-sm text-gray-400 pb-1 block"
+                  className="font-semibold text-sm text-gray-600 pb-1 block"
                   htmlFor="password"
                 >
                   Password
                 </label>
                 <input
-                  className="border border-black bg-gray-100 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full text-black"
+                  className="border border-slate-500 outline-none bg-gray-100 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full text-black"
                   type="password"
                   id="password"
                   name="password"
