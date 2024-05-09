@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 function Splash() {
   const navigate = useNavigate();
   return (
-    <div className=" p-1 m-1">
+    <div className=" p-1 m-1 ">
       <nav className="flex justify-between ">
         <div className="w-14 flex justify-evenly items-center ">
           <img src={logoColor} alt="" className="" />
@@ -55,7 +55,6 @@ function Splash() {
             >
               Click Here to Proceed
             </button>
-            
           </div>
         </div>
         <div className="flex justify-around items-center w-1/2">
@@ -68,4 +67,3 @@ function Splash() {
   );
 }
 export default Splash;
-
