@@ -44,6 +44,18 @@ function Mainpg() {
         console.log('error in getting', error);
       });
   }, []);
+  const deletingTheItem = (id) => {
+    console.log('hi');
+    axios
+      .delete(`http://localhost:3553/store/${id}`)
+      .then((res) => {
+        console.log(res, 'deleted');
+        location.reload();
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
   const notify = () => {
     toast.success('Your person is available');
   };
@@ -91,7 +103,7 @@ function Mainpg() {
             Find People Here
           </div>
           <button
-            className="w-28 bg-black h-[30px] my-3 flex items-center justify-center rounded cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-red-500 before:to-zinnc-500 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded hover:before:left-0 text-[#fff] font-medium text-sm"
+            className="w-28 bg-black h-[30px] my-3 flex items-center justify-center rounded cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-sky-500 before:to-zinnc-500 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded hover:before:left-0 text-[#fff] font-medium text-sm"
             onClick={() => {
               navigate('/Applyform');
             }}
@@ -99,7 +111,8 @@ function Mainpg() {
             Apply yourself
           </button>
         </div>
-        <div className=" flex justify-center items-center h-2/5 gap-3">
+
+        <div className=" flex justify-center items-center h-1/4 gap-3">
           <div className=" w-3/4 flex justify-center rounded-full bg-white shadow-md border gap-2">
             <div>
               <IoSearchOutline className="h-full bg-white w-12 p-3 rounded-[100%]" />
@@ -107,7 +120,6 @@ function Mainpg() {
             <input
               type="text"
               placeholder="Enter Skills/Works"
-              // value={input}
               className="p-4 w-full outline-none border-0 rounded-full"
               onChange={(e) => {
                 {
@@ -115,18 +127,9 @@ function Mainpg() {
                 }
               }}
             />
-
-            {/* <button className=" border-black border-l-[1px] bg-black p-1 font-semibold text-white">
-              Search
-            </button> */}
           </div>
-          {/* <button
-            className=" border-white bg-black p-4 font-semibold text-white rounded-full"
-            onClick={refresh}
-          >
-            Clear
-          </button> */}
         </div>
+        <br />
         <div className="buttonsDiv h-10 flex justify-evenly items-center ">
           <div className="Firstset  flex justify-center w-3/4 gap-3 items-center">
             <div className=" flex gap-2 items-center p-3 rounded-xl bg-white text-black border border-slate-300 font-medium">
@@ -296,40 +299,22 @@ function Mainpg() {
                   >
                     Connect
                   </button>
+                  {/* <button
+                    className="button bg-slate-100 border border-slate-900 p-1 font-semibold rounded-lg hover:bg-sky-100"
+                    onClick={() => {
+                      deletingTheItem;
+                    }}
+                  >
+                    Delete
+                  </button> */}
                 </div>
               </div>
             </div>
           ))}
         </div>
-        {/* <div className="grid grid-cols-2 gap-x-8 gap-y-8 mt-2.5">
-          {array.map((entity, index) => (
-            <div
-              className="w-10/12 rounded-2xl ml-12 text-center p-2 bg-sky-100 border border-sky-400 h-44 grid items-center	"
-              key={index}
-            >
-              <div>
-                <EntityCard key={index} entity={entity} />
-              </div>
-              <div className="w-7/12 flex justify-evenly ml-24 p-0.5"> */}
-        {/* <button className="bg-red-500 text-black-300 border border-rose-300 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
-                  <span className="bg-rose-300 shadow-rose-300 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
-                  Add +
-                </button> */}
-        {/* <button
-                  className="button bg-sky-500 border border-sky-600 p-1 font-semibold rounded-lg"
-                  onClick={notify}
-                >
-                  Connect
-                </button>
-              </div>
-            </div>
-          ))}
-        </div> */}
         <ToastContainer />
       </div>
     </div>
   );
 }
 export default Mainpg;
-
-// bg-gradient-to-r from-[#70c7ff] via-[#2fa8be] to-[#70c7ff]

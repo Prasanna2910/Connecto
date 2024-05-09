@@ -39,8 +39,8 @@ const MainSchema = new mongoose.Schema({
   PhoneNumber: Number,
   Email: String,
   WorkExp: String,
-  Location:String,
-  ExpectedSalary:String,
+  Location: String,
+  ExpectedSalary: String,
 });
 const userModelSchema = new mongoose.Schema({
   name: String,
@@ -115,6 +115,18 @@ app.post('/main', async (req, res) => {
   await ModelDb.create(req.body);
 
   return res.send(req.body);
+});
+
+app.delete('/store/:id', async (req, res) => {
+  try {
+    const deleted = await ModelDb.findByIdAndDelete(req.params.id);
+    console.log(deleted);
+    res.send('deleted');
+  } catch {
+    (error) => {
+      console.log(error);
+    };
+  }
 });
 
 const PORT = 3553;
