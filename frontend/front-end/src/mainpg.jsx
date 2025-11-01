@@ -1,320 +1,199 @@
-import React, { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import axios from 'axios';
-import EntityCard from './EntityCard';
-import { useNavigate } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
-import { IoSearchOutline } from 'react-icons/io5';
-import { CgDesignmodo } from 'react-icons/cg';
-import { MdManageAccounts } from 'react-icons/md';
-import { MdDeveloperMode } from 'react-icons/md';
-import { HiServerStack } from 'react-icons/hi2';
-import { FaHackerrank } from 'react-icons/fa';
-import { SiPytest } from 'react-icons/si';
-import { GiArtificialHive } from 'react-icons/gi';
-import { GiPipes } from 'react-icons/gi';
-import { GiWoodPile } from 'react-icons/gi';
-import { FaRegEye } from 'react-icons/fa';
-import { FaTrowelBricks } from 'react-icons/fa6';
-import { GiWaterTank } from 'react-icons/gi';
-import { MdElectricalServices } from 'react-icons/md';
-import { GiSwordSmithing } from 'react-icons/gi';
-import { IoGitNetworkSharp } from 'react-icons/io5';
-import { LuFileClock } from 'react-icons/lu';
-import { IoLocationSharp } from 'react-icons/io5';
-import { MdOutlineCurrencyRupee } from 'react-icons/md';
+import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { IoSearchOutline, IoLocationSharp, IoGitNetworkSharp } from "react-icons/io5";
+import { CgDesignmodo } from "react-icons/cg";
+import { MdManageAccounts, MdDeveloperMode, MdOutlineCurrencyRupee, MdElectricalServices } from "react-icons/md";
+import { HiServerStack } from "react-icons/hi2";
+import { FaHackerrank, FaRegEye, FaTrowelBricks } from "react-icons/fa6";
+import { SiPytest } from "react-icons/si";
+import { GiArtificialHive, GiPipes, GiWoodPile, GiSwordSmithing, GiWaterTank } from "react-icons/gi";
+import { LuFileClock } from "react-icons/lu";
 
 function Mainpg() {
-  // toast.configure();
   const [entities, setEntities] = useState([]);
-  const [array, setArray] = useState([]);
-  const [activeButton, setActiveButton] = useState('');
+  const [filtered, setFiltered] = useState([]);
   const navigate = useNavigate();
+
+  // Fetch data
   useEffect(() => {
     axios
-      .get('http://localhost:3553/main')
+      .get("http://localhost:3553/main")
       .then((res) => {
-        console.log('Fetch successful');
         if (res.data.length > 0) {
           setEntities(res.data);
-          setArray(res.data);
+          setFiltered(res.data);
         }
       })
-      .catch((error) => {
-        console.log('error in getting', error);
-      });
+      .catch((error) => console.log("Error fetching data:", error));
   }, []);
-  const deletingTheItem = (id) => {
-    console.log('hi');
-    axios
-      .delete(`http://localhost:3553/store/${id}`)
-      .then((res) => {
-        console.log(res, 'deleted');
-        location.reload();
-      })
-      .catch((error) => {
-        console.log('error', error);
-      });
-  };
+
+  // Toast Notification
   const notify = () => {
-    toast.success('Your person is available');
-  };
-  const handleInput = (e) => {
-    console.log(e.value);
-    let input = e.value.toLowerCase();
-    console.log(entities);
-    let modarr = entities.filter((element, index) => {
-      if (e.value == '') {
-        setEntities(entities);
-      }
-      let work = element.Work;
-      work = work.toLowerCase();
-      console.log(work.includes(input), element);
-      return work.includes(input);
+    toast.success("Your person is available!", {
+      position: "bottom-right",
+      autoClose: 2000,
     });
-    setArray(modarr);
-  };
-  const filterEntities = (work) => {
-    const filtered = entities.filter((entity) => entity.Work === work);
-    setArray(filtered);
-    setActiveButton(work);
-  };
-  const refresh = (e) => {
-    setEntities((e.target.value = ''));
   };
 
-  console.log(array);
+  // Handle Search Input
+  const handleInput = (e) => {
+    const input = e.target.value.toLowerCase();
+    if (input === "") setFiltered(entities);
+    else {
+      const results = entities.filter((el) =>
+        el.Work.toLowerCase().includes(input)
+      );
+      setFiltered(results);
+    }
+  };
+
+  // Filter by job
+  const filterEntities = (work) => {
+    const results = entities.filter((entity) => entity.Work === work);
+    setFiltered(results);
+  };
+
+  // ✅ Send SMS when Connect button is clicked
+  const handleConnect = async (entity) => {
+  notify(); // show toast
+
+  try {
+    await axios.post("http://localhost:3553/send-sms", {
+      phone: entity.PhoneNumber, // number from DB
+      message: `Hello ${entity.Name}, someone is interested in connecting with you for the ${entity.Work} job!`,
+    });
+    console.log("SMS sent successfully!");
+  } catch (error) {
+    console.error("Error sending SMS:", error);
+  }
+};
+
+
   if (entities.length === 0) {
     return (
-      <div className="flex justify-center items-center w-screen h-screen">
-        <div className="w-32 aspect-square rounded-full relative flex justify-center items-center animate-[spin_3s_linear_infinite] z-40 bg-[conic-gradient(white_0deg,white_300deg,transparent_270deg,transparent_360deg)] before:animate-[spin_2s_linear_infinite] before:absolute before:w-[60%] before:aspect-square before:rounded-full before:z-[80] before:bg-[conic-gradient(white_0deg,white_270deg,transparent_180deg,transparent_360deg)] after:absolute after:w-3/4 after:aspect-square after:rounded-full after:z-[60] after:animate-[spin_3s_linear_infinite] after:bg-[conic-gradient(#0074A2_0deg,#0074A2_180deg,transparent_180deg,transparent_360deg)]">
-          <span className="absolute w-[85%] aspect-square rounded-full z-[60] animate-[spin_5s_linear_infinite] bg-[conic-gradient(#21C0FF_0deg,#0088BE_180deg,transparent_180deg,transparent_360deg)]"></span>
-        </div>
+      <div className="flex justify-center items-center w-screen h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-cyan-100">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-sky-500"></div>
       </div>
     );
   }
-  console.log();
 
   return (
-    <div className="manindiv ">
-      <div className="HeaderDiv bg-slate-100 h-96 p-2">
-        <div className=" flex justify-center items-center m-4">
-          <div className="FirstText w-2/5 font-bold text-3xl text-black flex justify-center items-center">
-            Find People Here
-          </div>
-          <button
-            className="w-28 bg-black h-[30px] my-3 flex items-center justify-center rounded cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-sky-500 before:to-zinnc-500 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded hover:before:left-0 text-[#fff] font-medium text-sm"
-            onClick={() => {
-              navigate('/Applyform');
-            }}
-          >
-            Apply yourself
-          </button>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-cyan-100">
+      {/* Header */}
+      <div className="text-center py-10 px-4">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6 tracking-wide">
+          Find People Here
+        </h1>
+        <button
+          onClick={() => navigate("/Applyform")}
+          className="px-8 py-3 bg-gradient-to-r from-sky-500 to-cyan-400 text-white rounded-full font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all"
+        >
+          Apply Yourself
+        </button>
 
-        <div className=" flex justify-center items-center h-1/4 gap-3">
-          <div className=" w-3/4 flex justify-center rounded-full bg-white shadow-md border gap-2">
-            <div>
-              <IoSearchOutline className="h-full bg-white w-12 p-3 rounded-[100%]" />
-            </div>
+        {/* Search Bar */}
+        <div className="mt-10 flex justify-center">
+          <div className="w-full md:w-1/2 bg-white shadow-lg rounded-full flex items-center px-5 border border-gray-200">
+            <IoSearchOutline className="text-gray-500 text-2xl" />
             <input
               type="text"
-              placeholder="Enter Skills/Works"
-              className="p-4 w-full outline-none border-0 rounded-full"
-              onChange={(e) => {
-                {
-                  handleInput(e.target);
-                }
-              }}
+              placeholder="Search for skills or works..."
+              onChange={handleInput}
+              className="w-full px-4 py-3 outline-none rounded-full text-gray-700 text-lg"
             />
           </div>
         </div>
-        <br />
-        <div className="buttonsDiv h-10 flex justify-evenly items-center ">
-          <div className="Firstset  flex justify-center w-3/4 gap-3 items-center">
-            <div className=" flex gap-2 items-center p-3 rounded-xl bg-white text-black border border-slate-300 font-medium">
-              <GiPipes />
-              <button onClick={() => filterEntities('Plumber')} className="">
-                Plumber
-              </button>
-            </div>
-            <div className=" flex gap-2 items-center p-3 rounded-xl bg-white text-black border border-slate-300 font-medium">
-              <GiWoodPile />
-              <button className="" onClick={() => filterEntities('Carpenter')}>
-                Carpenter
-              </button>
-            </div>
-            <div className=" flex gap-2 items-center p-3 rounded-xl bg-white text-black border border-slate-300 font-medium">
-              <FaRegEye />
-              <button className="" onClick={() => filterEntities('Supervisor')}>
-                Supervisor
-              </button>
-            </div>
-            <div className=" flex gap-2 items-center p-3 rounded-xl bg-white text-black border border-slate-300 font-medium">
-              <FaTrowelBricks />
-              <button className="" onClick={() => filterEntities('Mason')}>
-                Mason
-              </button>
-            </div>
-            <div className=" flex gap-2 items-center p-3 rounded-xl bg-white text-black border border-slate-300 font-medium">
-              <GiWaterTank />
-              <button className="" onClick={() => filterEntities('Waterman')}>
-                Waterman
-              </button>
-            </div>
-            <div className=" flex gap-2 items-center p-3 rounded-xl bg-white text-black border border-slate-300 font-medium">
-              <MdElectricalServices />
-              <button
-                className=""
-                onClick={() => filterEntities('Electrician')}
-              >
-                Electrician
-              </button>
-            </div>
-            <div className=" flex gap-2 items-center p-3 rounded-xl bg-white text-black border border-slate-300 font-medium">
-              <GiSwordSmithing />
-              <button className="" onClick={() => filterEntities('Smith')}>
-                Smith
-              </button>
-            </div>
-          </div>
-        </div>
-        <br />
-        <div className="btnsiv h-10 flex justify-evenly items-center">
-          <div className="  Secondset flex justify-evenly gap-3 w-3/4 items-center">
-            <div className=" flex gap-2 items-center p-3 rounded-xl bg-white text-black border border-slate-300 font-medium">
-              <CgDesignmodo className="" />
-              <button
-                className=""
-                onClick={() => filterEntities('UX/UI architect')}
-              >
-                UX architect
-              </button>
-            </div>
-            <div className="flex gap-2 items-center p-3 rounded-xl bg-white text-black border border-slate-300 font-medium">
-              <MdManageAccounts />
-              <button className="" onClick={() => filterEntities('HR')}>
-                HR
-              </button>
-            </div>
-            <div className="flex gap-2 items-center p-3 rounded-xl bg-white text-black border border-slate-300 font-medium">
-              <MdDeveloperMode />
-              <button className="" onClick={() => filterEntities('Developer')}>
-                Developer
-              </button>
-            </div>
-            <div className="flex gap-2 items-center p-3 rounded-xl bg-white text-black border border-slate-300 font-medium">
-              <HiServerStack />
-              <button className="" onClick={() => filterEntities('Serverman')}>
-                Serverman
-              </button>
-            </div>
-            <div className="flex gap-2 items-center p-3 rounded-xl bg-white text-black border border-slate-300 font-medium">
-              <FaHackerrank />
-              <button className="" onClick={() => filterEntities('Hacker')}>
-                Hacker
-              </button>
-            </div>
-            <div className="flex gap-2 items-center p-3 rounded-xl bg-white text-black border border-slate-300 font-medium">
-              <SiPytest />
-              <button
-                className=""
-                onClick={() => filterEntities('Backend Developer')}
-              >
-                Tester
-              </button>
-            </div>
-            <div className="flex gap-2 items-center p-3 rounded-xl bg-white text-black border border-slate-300 font-medium">
-              <GiArtificialHive />
-              <button
-                className=""
-                onClick={() => filterEntities('AI developer')}
-              >
-                AI
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <div>
-        {' '}
-        <div className="grid gap-5 justify-center items-center p-10">
-          {array.map((entity, index) => (
-            <div
-              className="border w-[50vw] h-48 pt-4 shadow-lg rounded-2xl"
-              key={index}
-            >
-              <div className="flex">
-                <div className="flex items-center justify-center w-16">
-                  <img
-                    src={entity.Profile}
-                    alt="ProfilePhoto"
-                    className="size-12 rounded-full"
-                  />
-                </div>
-                <div>
-                  <div className="pl-5">
-                    <p className="font-semibold text-lg">{entity.Name}</p>
-                  </div>
-                  <div className=" pl-5 flex items-center gap-2 w-1/4 ">
-                    <p className="text-slate-600 font-semibold">
-                      {entity.Work}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center  w-full justify-start mt-2">
-                <div className="pl-5 mt-1 w-1/3 flex items-center gap-1 border-r-2 ">
-                  <LuFileClock />
-                  <p className="text-slate-600">{entity.WorkExp}</p>
-                </div>
-                <div className="pl-5 mt-1 w-1/3 flex items-center gap-1 border-r-2 ">
-                  <IoLocationSharp />
-                  <p className="text-slate-600">{entity.Location}</p>
-                </div>
-                <div className="pl-5 mt-1 w-2/3 flex items-center gap-1">
-                  <MdOutlineCurrencyRupee />
-                  <p className="text-slate-600">{entity.ExpectedSalary}</p>
-                </div>
-              </div>
-              <div className="flex justify-between">
-                <div>
-                  <div className=" pl-5 mt-1 w-1/2 flex items-center ">
-                    <p className="text-slate-600 font-medium">{entity.Email}</p>
-                  </div>
-                  <div className=" pl-5 mt-1 w-1/2 flex items-center ">
-                    <p className="text-slate-600 font-medium">
-                      {entity.PhoneNumber}
-                    </p>
-                  </div>
-                </div>
-                <br />
-                <br />
-                <br />
-                <div className=" w-2/5 flex items-center justify-center">
-                  <button
-                    className="button bg-slate-100 border border-slate-900 p-1 font-semibold rounded-lg hover:bg-red-100"
-                    onClick={notify}
-                  >
-                    Connect
-                  </button>
-                  {/* <button
-                    className="button bg-slate-100 border border-slate-900 p-1 font-semibold rounded-lg hover:bg-sky-100"
-                    onClick={() => {
-                      deletingTheItem;
-                    }}
-                  >
-                    Delete
-                  </button> */}
-                </div>
+      {/* Job Filter Buttons */}
+      <div className="flex flex-wrap justify-center gap-4 px-6 mb-10">
+        {[
+          { label: "Plumber", icon: <GiPipes /> },
+          { label: "Carpenter", icon: <GiWoodPile /> },
+          { label: "Supervisor", icon: <FaRegEye /> },
+          { label: "Mason", icon: <FaTrowelBricks /> },
+          { label: "Waterman", icon: <GiWaterTank /> },
+          { label: "Electrician", icon: <MdElectricalServices /> },
+          { label: "Smith", icon: <GiSwordSmithing /> },
+          { label: "UX Architect", icon: <CgDesignmodo /> },
+          { label: "HR", icon: <MdManageAccounts /> },
+          { label: "Developer", icon: <MdDeveloperMode /> },
+          { label: "Serverman", icon: <HiServerStack /> },
+          { label: "Hacker", icon: <FaHackerrank /> },
+          { label: "Tester", icon: <SiPytest /> },
+          { label: "AI", icon: <GiArtificialHive /> },
+        ].map((job, i) => (
+          <button
+            key={i}
+            onClick={() => filterEntities(job.label)}
+            className="flex items-center gap-2 bg-white px-5 py-2.5 rounded-full shadow-md hover:shadow-lg hover:bg-sky-50 border border-gray-200 transition-all text-gray-700 font-medium"
+          >
+            {job.icon} {job.label}
+          </button>
+        ))}
+      </div>
+
+      {/* User Cards */}
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 px-8 pb-16 justify-items-center">
+        {filtered.map((entity, index) => (
+          <div
+            key={index}
+            className="bg-white w-full max-w-md rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 p-6"
+          >
+            {/* Profile */}
+            <div className="flex items-center gap-4">
+              <img
+                src={entity.Profile}
+                alt="Profile"
+                className="w-16 h-16 rounded-full border-2 border-sky-400 object-cover"
+              />
+              <div>
+                <h3 className="text-xl font-bold text-gray-800">{entity.Name}</h3>
+                <p className="text-sky-600 font-medium">{entity.Work}</p>
               </div>
             </div>
-          ))}
-        </div>
-        <ToastContainer />
+
+            {/* Details */}
+            <div className="mt-4 border-t pt-4 text-gray-700 space-y-2">
+              <div className="flex items-center gap-2">
+                <LuFileClock className="text-sky-500" />
+                <span>{entity.WorkExp}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <IoLocationSharp className="text-sky-500" />
+                <span>{entity.Location}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MdOutlineCurrencyRupee className="text-sky-500" />
+                <span>{entity.ExpectedSalary}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <IoGitNetworkSharp className="text-sky-500" />
+                <span>{entity.Email}</span>
+              </div>
+              <p className="text-gray-500">{entity.PhoneNumber}</p>
+            </div>
+
+            {/* ✅ Connect Button */}
+            <div className="flex justify-end mt-5">
+              <button
+  onClick={() => handleConnect(entity)}
+  className="px-5 py-2 bg-gradient-to-r from-sky-500 to-cyan-400 text-white rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all"
+>
+  Connect
+</button>
+
+            </div>
+          </div>
+        ))}
       </div>
+
+      <ToastContainer position="bottom-right" />
     </div>
   );
 }
+
 export default Mainpg;

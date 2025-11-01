@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import Login from './Login';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Mainpg from './mainpg';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -13,6 +11,7 @@ function Signup() {
     confirmpassword: '',
     gender: 'male',
   });
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,15 +22,17 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(formData)
+      console.log(formData);
       const res = await axios.post('http://localhost:3553/signup', formData);
       console.log(res.data.message);
+
       if (res.data.message === 'ok') {
         navigate('/Mainpg');
       } else if (res.data.message === 'get out') {
-        alert('Your email is already in our databse. Please Login');
-        navigate(`/Login`);
+        alert('Your email is already registered. Please login instead.');
+        navigate('/Login');
       }
+
       setFormData({
         name: '',
         email: '',
@@ -39,119 +40,109 @@ function Signup() {
         password: '',
         confirmpassword: '',
         gender: 'male',
-        // profile: '',
       });
     } catch (err) {
-      console.log('error', err.response);
+      console.log('Error:', err.response);
     }
   };
-  // const handleFile = (e) => {
-  //   let a = e.target.files[0];
-  //   // console.log(a)
-  //   let b = new FileReader();
-  //   b.readAsDataURL(a);
-  //   b.onload = (event) => {
-  //     // console.log(event.target.result);
-  //     axios
-  //       .post('https://api.cloudinary.com/v1_1/ddpebfutl/image/upload', {
-  //         file: event.target.result,
-  //         upload_preset: 'tg5wbsjz',
-  //       })
-  //       .then((r) => {
-  //         setFormData({...formData,profile:r.data.secure_url});
-  //         console.log(r.data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   };
-  // };
 
   return (
-    <div className="flex flex-col items-center justify-center h-3/4 ">
-      <div className="w-full max-w-md rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-bold text-sky-500 mb-4">Sign Up</h2>
-        <form className="flex flex-col" onSubmit={handleSubmit}>
-          <input
-            placeholder="Name"
-            name="name"
-            value={formData.name}
-            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-slate-500 transition ease-in-out duration-150"
-            type="text"
-            onChange={handleChange}
-          />
+    <div className="min-h-screen flex justify-center items-center bg-gradient-to-r from-sky-100 to-indigo-50 p-6">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl shadow-sky-200 p-8">
+        <h2 className="text-3xl font-bold text-center text-sky-600 mb-6">Create Your Account</h2>
 
-          <input
-            placeholder="Email"
-            name="email"
-            value={formData.email}
-            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-slate-500 transition ease-in-out duration-150"
-            type="email"
-            onChange={handleChange}
-          />
-          <input
-            placeholder="Confirm Email"
-            name="confirmemail"
-            value={formData.confirmemail}
-            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-slate-500 transition ease-in-out duration-150"
-            type="email"
-            onChange={handleChange}
-          />
-          <input
-            placeholder="Password"
-            name="password"
-            value={formData.password}
-            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-slate-500 transition ease-in-out duration-150"
-            type="password"
-            onChange={handleChange}
-          />
-          <input
-            placeholder="Confirm Password"
-            name="confirmpassword"
-            value={formData.confirmpassword}
-            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-slate-500 transition ease-in-out duration-150"
-            type="password"
-            onChange={handleChange}
-          />
-          {/* <input
-            placeholder="Profile"
-            name="profile"
-            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-            type="file"
-            onChange={handleFile}
-          /> */}
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Full Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              placeholder="Enter your name"
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+            />
+          </div>
 
-          <select
-            className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-slate-500 transition ease-in-out duration-150"
-            id="gender"
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-          >
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
-          <p className="text-gray-900 mt-4">
-            {' '}
-            Already have an account?{' '}
-            <p
-              className="text-sky-500 hover:underline "
-              onClick={() => {
-                navigate(`/Login`);
-              }}
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              placeholder="Enter your email"
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Confirm Email</label>
+            <input
+              type="email"
+              name="confirmemail"
+              value={formData.confirmemail}
+              placeholder="Re-enter your email"
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Password</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              placeholder="Enter password"
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Confirm Password</label>
+            <input
+              type="password"
+              name="confirmpassword"
+              value={formData.confirmpassword}
+              placeholder="Re-enter password"
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Gender</label>
+            <select
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sky-400"
             >
-              Login
-            </p>
-          </p>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
           <button
-            className="bg-gradient-to-r from-indigo-500 to-sky-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 transition ease-in-out duration-150"
             type="submit"
-            // onSubmit={handleSubmit}
+            className="w-full bg-gradient-to-r from-sky-600 to-indigo-500 text-white font-semibold py-2 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300"
           >
             Sign Up
           </button>
         </form>
+
+        <div className="text-center mt-5 text-gray-700">
+          Already have an account?{' '}
+          <span
+            onClick={() => navigate('/Login')}
+            className="text-sky-600 font-medium cursor-pointer hover:underline"
+          >
+            Login
+          </span>
+        </div>
       </div>
     </div>
   );

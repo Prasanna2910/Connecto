@@ -1,69 +1,77 @@
-import react, { useEffect, useState } from 'react';
-import axios from 'axios';
-import EntityCard from './EntityCard';
-import Login from './Login';
-import './App.css';
-import logoColor from './assets/logo-color1.png';
-import workerimg from './assets/worker-animated-nobg.png';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import logoColor from "./assets/logo-color1.png";
+import workerimg from "./assets/worker-animated-nobg.png";
 
 function Splash() {
   const navigate = useNavigate();
+
   return (
-    <div className=" p-1 m-1 ">
-      <nav className="flex justify-between ">
-        <div className="w-14 flex justify-evenly items-center ">
-          <img src={logoColor} alt="" className="" />
+    <div className="min-h-screen w-full bg-gradient-to-br from-white via-sky-50 to-sky-100 text-gray-900 flex flex-col font-sans">
+      {/* Navbar */}
+      <nav className="flex justify-between items-center px-6 md:px-16 py-4 md:py-6 backdrop-blur-md bg-white/40 sticky top-0 z-50 shadow-sm">
+        <div className="w-20 md:w-24 flex items-center">
+          <img src={logoColor} alt="logo" className="w-full" />
         </div>
 
-        <div className="flex gap-4 justify-evenly items-center font-semibold w-1/2">
+        <div className="flex gap-6 md:gap-10 font-semibold text-lg md:text-xl tracking-wide">
           <h1
-            className="hover:underline"
-            onClick={() => {
-              navigate('/About');
-            }}
+            className="hover:text-sky-600 transition-all cursor-pointer"
+            onClick={() => navigate("/About")}
           >
             About
           </h1>
-          <h1 className="hover:underline">Case studies</h1>
-          <h1 className="hover:underline">Components</h1>
+          <h1 className="hover:text-sky-600 transition-all cursor-pointer">
+            Case Studies
+          </h1>
+          <h1 className="hover:text-sky-600 transition-all cursor-pointer">
+            Components
+          </h1>
         </div>
       </nav>
-      <br />
 
-      <div className="flex ">
-        <div className="m-4 p-4  w-1/2">
-          <div className=" w-3/4 text-justify">
-            <h1 className="font-semibold text-3xl">
-              Unbeatable place to grow and find right person to work.{' '}
-            </h1>
-          </div>
-          <br />
-          <div className=" w-3/5 text-justify">
-            <p>
-              Work with us. Work from us. Get connected with Connecto. Trusted
-              by many people
-            </p>
-          </div>
-          <br />
-          <div>
-            <button
-              className="w-52 bg-black p-2 h-[50px] my-3 flex items-center justify-center rounded cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-sky-500 before:to-sky-500 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded hover:before:left-0 text-[#fff] font-medium"
-              onClick={() => {
-                navigate(`/Login`);
-              }}
-            >
-              Click Here to Proceed
-            </button>
-          </div>
+      {/* Hero Section */}
+      <div className="flex flex-col md:flex-row justify-between items-center flex-1 px-8 md:px-20 py-8 md:py-16 gap-10 md:gap-20">
+        {/* Left Content */}
+        <div className="md:w-1/2 space-y-8 animate-fadeIn">
+          <h1 className="font-bold text-4xl sm:text-5xl md:text-6xl leading-tight tracking-tight text-gray-800">
+            Unbeatable place to{" "}
+            <span className="text-sky-600">grow</span> and find the right
+            person to <span className="text-sky-600">work</span>.
+          </h1>
+
+          <p className="text-lg sm:text-xl text-gray-600 leading-relaxed md:w-4/5">
+            Work with us. Work from us. Get connected with{" "}
+            <b>Connecto</b> — a trusted platform that bridges opportunities for
+            everyone, from corporate to craft.
+          </p>
+
+          <button
+            onClick={() => navigate("/Login")}
+            className="relative inline-flex items-center justify-center w-60 h-14 bg-sky-600 text-white text-lg font-medium rounded-full shadow-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl 
+                       before:absolute before:top-0 before:-left-full before:w-full before:h-full 
+                       before:bg-gradient-to-r before:from-sky-400 before:to-sky-600 
+                       before:transition-all before:duration-500 hover:before:left-0"
+          >
+            Click Here to Proceed
+          </button>
         </div>
-        <div className="flex justify-around items-center w-1/2">
-          <div className=" size-80 rounded-full flex items-center justify-around bg-sky-100">
-            <img src={workerimg} alt="" className=" w-64 rounded-full" />
+
+        {/* Right Image */}
+        <div className="md:w-1/2 flex justify-center items-center">
+          <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full bg-white shadow-xl flex items-center justify-center overflow-hidden animate-float">
+            <img
+              src={workerimg}
+              alt="worker"
+              className="w-72 sm:w-80 md:w-[22rem] object-contain"
+            />
           </div>
         </div>
       </div>
+
+      
     </div>
   );
 }
+
 export default Splash;
